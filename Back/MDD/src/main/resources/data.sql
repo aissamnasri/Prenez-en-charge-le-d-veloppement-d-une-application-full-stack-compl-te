@@ -1,11 +1,19 @@
 INSERT INTO topics(name, description)
-VALUES
-    ('Java', 'Java programming language'),
+SELECT 'Java', 'Java programming language'
+WHERE NOT EXISTS (SELECT 1 FROM topics WHERE name = 'Java');
 
-    ('Spring Boot', 'Spring Boot backend framework'),
+INSERT INTO topics(name, description)
+SELECT 'Spring Boot', 'Spring Boot backend framework'
+WHERE NOT EXISTS (SELECT 1 FROM topics WHERE name = 'Spring Boot');
 
-    ('Angular', 'Angular frontend framework'),
+INSERT INTO topics(name, description)
+SELECT 'Angular', 'Angular frontend framework'
+WHERE NOT EXISTS (SELECT 1 FROM topics WHERE name = 'Angular');
 
-    ('Docker', 'Containerization platform'),
+INSERT INTO topics(name, description)
+SELECT 'Docker', 'Containerization platform'
+WHERE NOT EXISTS (SELECT 1 FROM topics WHERE name = 'Docker');
 
-    ('DevOps', 'CI/CD and deployment');
+INSERT INTO topics(name, description)
+SELECT 'DevOps', 'CI/CD and deployment'
+WHERE NOT EXISTS (SELECT 1 FROM topics WHERE name = 'DevOps');

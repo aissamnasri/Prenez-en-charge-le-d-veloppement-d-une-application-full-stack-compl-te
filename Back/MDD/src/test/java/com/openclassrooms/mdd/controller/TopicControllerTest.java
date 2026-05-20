@@ -2,6 +2,7 @@ package com.openclassrooms.mdd.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.mdd.dto.topic.TopicDto;
+import com.openclassrooms.mdd.security.jwt.JwtAuthenticationFilter;
 import com.openclassrooms.mdd.service.TopicService;
 
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -38,6 +38,9 @@ class TopicControllerTest {
 
     @MockitoBean
     private TopicService topicService;
+
+    @MockitoBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Test
     void getAllTopics_shouldReturn200() throws Exception {
