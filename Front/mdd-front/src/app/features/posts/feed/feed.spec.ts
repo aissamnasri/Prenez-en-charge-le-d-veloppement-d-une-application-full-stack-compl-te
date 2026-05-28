@@ -1,19 +1,34 @@
+import { Component, Directive, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
-import { Feed } from './feed';
+import { FeedComponent } from './feed';
 
-describe('Feed', () => {
-  let component: Feed;
-  let fixture: ComponentFixture<Feed>;
+@Directive({ selector: '[routerLink]' })
+class RouterLinkStubDirective {
+  @Input() routerLink: unknown;
+}
+
+describe('FeedComponent', () => {
+  let component: FeedComponent;
+  let fixture: ComponentFixture<FeedComponent>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(FeedComponent, {
+      set: {
+        imports: [CommonModule, MatButtonModule, MatCardModule, RouterLinkStubDirective]
+      }
+    });
+
     await TestBed.configureTestingModule({
-      imports: [Feed],
+      imports: [FeedComponent]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Feed);
+    fixture = TestBed.createComponent(FeedComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

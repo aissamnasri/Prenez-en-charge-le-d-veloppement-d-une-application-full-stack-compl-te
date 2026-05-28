@@ -1,0 +1,47 @@
+@use '@angular/material' as mat;
+.home-container {
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 40px;
+
+  padding: 20px;
+}
+
+.logo {
+  width: 300px;
+  max-width: 80vw;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 20px;
+}
+
+button {
+  width: 150px;
+  height: 45px;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 768px) {
+
+  .logo {
+    width: 180px;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  button {
+    width: 220px;
+  }
+}

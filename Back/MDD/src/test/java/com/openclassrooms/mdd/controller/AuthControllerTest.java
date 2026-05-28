@@ -54,4 +54,22 @@ class AuthControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.token").value("jwt-token"));
     }
+
+    @Test
+    void login_shouldReturn200() throws Exception {
+        com.openclassrooms.mdd.dto.auth.LoginRequest loginRequest = new com.openclassrooms.mdd.dto.auth.LoginRequest();
+        loginRequest.setEmailOrUsername("john@test.com");
+        loginRequest.setPassword("Password123!");
+
+        when(authService.login(any(com.openclassrooms.mdd.dto.auth.LoginRequest.class)))
+                .thenReturn(AuthResponse.builder()
+                        .token("jwt-token")
+                        .build());
+
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token").value("jwt-token"));
+    }
 }

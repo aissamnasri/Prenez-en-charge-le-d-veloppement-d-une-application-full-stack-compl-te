@@ -1,0 +1,90 @@
+.navbar {
+
+  height: 80px;
+
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 30px;
+
+  border-bottom: 1px solid #dcdcdc;
+
+  background: white;
+}
+
+.logo {
+
+  width: 120px;
+}
+
+.nav-links {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+.nav-links a {
+
+  text-decoration: none;
+
+  color: black;
+
+  font-weight: 500;
+}
+
+.active-link {
+
+  color: #7763f1 !important;
+}
+
+.logout-btn {
+
+  border: none;
+
+  background: transparent;
+
+  color: red;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+mat-icon {
+
+  font-size: 36px;
+
+  width: 36px;
+  height: 36px;
+
+  color: gray;
+}
+
+@media screen and (max-width: 768px) {
+
+  .navbar {
+
+    padding: 0 15px;
+  }
+
+  .logo {
+
+    width: 90px;
+  }
+
+  .nav-links {
+
+    gap: 10px;
+  }
+
+  .nav-links a,
+  .logout-btn {
+
+    font-size: 14px;
+  }
+}

@@ -97,10 +97,8 @@ class TopicServiceTest {
         List<TopicDto> result = topicService.getAllTopics();
 
         assertEquals(1, result.size());
-
-        assertEquals("Java", result.getFirst().getName());
-
-        assertTrue(result.getFirst().isSubscribed());
+        assertEquals("Java", result.get(0).getName());
+        assertTrue(result.get(0).isSubscribed());
     }
 
     @Test
@@ -119,6 +117,32 @@ class TopicServiceTest {
 
         verify(subscriptionRepository, times(1))
                 .save(any(Subscription.class));
+    }
+
+    @Test
+    void subscribe_shouldThrowWhenAlreadySubscribed() {
+        when(userRepository.findByUsername("john"))
+                .thenReturn(Optional.of(user));
+        when(topicRepository.findById(1L))
+                .thenReturn(Optional.of(topic));
+        when(subscriptionRepository.existsByUserAndTopic(user, topic))
+                .thenReturn(true);
+
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> topicService.subscribe(1L));
+
+        assertEquals("Already subscribed", exception.getMessage());
+    }
+
+    @Test
+    void subscribe_shouldThrowWhenTopicNotFound() {
+        when(userRepository.findByUsername("john"))
+                .thenReturn(Optional.of(user));
+        when(topicRepository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class,
+                () -> topicService.subscribe(1L));
     }
 
     @Test
@@ -143,5 +167,20 @@ class TopicServiceTest {
 
         verify(subscriptionRepository, times(1))
                 .delete(subscription);
+    }
+
+    @Test
+    void unsubscribe_shouldThrowWhenSubscriptionNotFound() {
+        when(userRepository.findByUsername("john"))
+                .thenReturn(Optional.of(user));
+        when(topicRepository.findById(1L))
+                .thenReturn(Optional.of(topic));
+        when(subscriptionRepository.findByUserAndTopic(user, topic))
+                .thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> topicService.unsubscribe(1L));
+
+        assertEquals("Subscription not found", exception.getMessage());
     }
 }

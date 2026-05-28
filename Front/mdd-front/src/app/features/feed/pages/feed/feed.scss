@@ -1,0 +1,58 @@
+.feed-container {
+
+  padding: 30px;
+}
+
+.feed-header {
+
+  display: flex;
+  justify-content: flex-start;
+
+  margin-bottom: 30px;
+}
+
+.posts-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 20px;
+}
+
+.post-card {
+
+  border-radius: 12px;
+
+  padding: 10px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.post-card:hover {
+
+  transform: translateY(-3px);
+}
+
+.loading {
+
+  text-align: center;
+
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 768px) {
+
+  .feed-container {
+
+    padding: 15px;
+  }
+
+  .posts-grid {
+
+    grid-template-columns: 1fr;
+  }
+}
