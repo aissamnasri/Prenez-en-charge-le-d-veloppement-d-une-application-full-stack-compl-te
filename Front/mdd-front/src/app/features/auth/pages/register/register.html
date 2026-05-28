@@ -1,0 +1,70 @@
+<div class="register-container">
+
+  <button
+    mat-icon-button
+    class="back-button"
+    (click)="goBack()"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <img
+    src="/logo.png"
+    alt="Logo"
+    class="logo"
+  />
+
+  <h2>Inscription</h2>
+
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    class="register-form"
+  >
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Nom d'utilisateur</mat-label>
+
+      <input
+        matInput
+        formControlName="username"
+      />
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Adresse e-mail</mat-label>
+
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+      />
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Mot de passe</mat-label>
+
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+      />
+
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      S'inscrire
+    </button>
+
+  </form>
+
+</div>

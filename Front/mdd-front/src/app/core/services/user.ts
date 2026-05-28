@@ -1,6 +1,43 @@
 import { Injectable } from '@angular/core';
 
+import { HttpClient }
+from '@angular/common/http';
+
+import { Observable }
+from 'rxjs';
+
+import { environment }
+from '../../../environments/environment';
+
+import { User }
+from '../models/user.model';
+
+import { UpdateUserRequest }
+from '../models/update-user.model';
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class User {}
+export class UserService {
+
+  private apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
+
+  getCurrentUser(): Observable<User> {
+
+    return this.http.get<User>(
+      `${this.apiUrl}/users/me`
+    );
+  }
+
+  updateUser(
+    request: UpdateUserRequest
+  ): Observable<User> {
+
+    return this.http.put<User>(
+      `${this.apiUrl}/users/me`,
+      request
+    );
+  }
+}

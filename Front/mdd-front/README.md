@@ -1,59 +1,127 @@
-# MddFront
+# MDD Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
+Frontend Angular de l’application MDD développée dans le cadre du projet OpenClassrooms.
 
-## Development server
+---
 
-To start a local development server, run:
+# Stack Technique
+
+- Angular 20
+- TypeScript
+- Angular Material
+- RxJS
+- SCSS
+- JWT Authentication
+- Angular Standalone Components
+
+---
+
+# Fonctionnalités
+
+## Authentification
+
+- Inscription utilisateur
+- Connexion utilisateur
+- Gestion JWT
+- Route Guard
+- Interceptor HTTP JWT
+
+---
+
+## Feed
+
+- Affichage des articles
+- Navigation vers détail article
+- Responsive design
+
+---
+
+## Topics
+
+- Liste des topics
+- Abonnement / désabonnement
+
+---
+
+## Posts
+
+- Création d’article
+- Détail article
+- Commentaires
+- Ajout de commentaire
+
+---
+
+## Profil
+
+- Modification profil
+- Liste abonnements
+- Désabonnement
+
+---
+
+# Installation
+
+## Cloner le projet
 
 ```bash
+git clone <repo-url>
+Installer les dépendances
+npm install
+Lancement du projet
+Démarrer Angular
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Application disponible sur :
 
-## Code scaffolding
+http://localhost:4200
+Backend
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Le backend Spring Boot doit être lancé sur :
 
-```bash
-ng generate component component-name
-```
+http://localhost:8080
+Structure du projet
+src/app
+│
+├── core
+│   ├── guards
+│   ├── interceptors
+│   ├── models
+│   └── services
+│
+├── features
+│   ├── auth
+│   ├── feed
+│   ├── posts
+│   ├── profile
+│   └── topics
+│
+├── layout
+│   └── navbar
+│
+└── app.routes.ts
+Authentification JWT
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Le token JWT est :
 
-```bash
-ng generate --help
-```
+stocké dans le localStorage
+automatiquement ajouté aux requêtes HTTP via un interceptor
+Variables d’environnement
+src/environments/environment.ts
+export const environment = {
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
+  apiUrl: 'http://localhost:8080/api'
+};
+Tests
+Lancer les tests
 ng test
-```
+Responsive Design
 
-## Running end-to-end tests
+L’application est responsive :
 
-For end-to-end (e2e) testing, run:
+Desktop
+Tablet
+Mobile
+Auteur
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Projet réalisé dans le cadre de la formation OpenClassrooms.

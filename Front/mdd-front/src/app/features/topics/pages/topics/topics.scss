@@ -1,0 +1,40 @@
+@use '@angular/material' as mat;
+.topics-container {
+
+  padding: 30px;
+}
+
+.topics-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 20px;
+}
+
+.topic-card {
+
+  padding: 20px;
+
+  border-radius: 12px;
+}
+
+button {
+
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+
+  .topics-container {
+
+    padding: 15px;
+  }
+
+  .topics-grid {
+
+    grid-template-columns: 1fr;
+  }
+}

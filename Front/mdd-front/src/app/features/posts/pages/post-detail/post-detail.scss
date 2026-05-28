@@ -1,0 +1,62 @@
+.post-detail-container {
+
+  padding: 30px;
+
+  max-width: 900px;
+
+  margin: auto;
+}
+
+mat-card {
+
+  margin-bottom: 30px;
+
+  border-radius: 12px;
+}
+
+.comments-section {
+
+  margin-bottom: 30px;
+}
+
+.comment-card {
+
+  padding: 15px;
+
+  border: 1px solid #e0e0e0;
+
+  border-radius: 10px;
+
+  margin-bottom: 15px;
+}
+
+.comment-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.comment-form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+button {
+
+  width: 150px;
+}
+
+@media screen and (max-width: 768px) {
+
+  .post-detail-container {
+
+    padding: 15px;
+  }
+}

@@ -1,0 +1,111 @@
+<app-navbar></app-navbar>
+
+<div
+  class="post-detail-container"
+  *ngIf="post"
+>
+
+  <mat-card>
+
+    <mat-card-title>
+
+      {{ post.title }}
+
+    </mat-card-title>
+
+    <mat-card-subtitle>
+
+      {{ post.createdAt | date:'dd/MM/yyyy' }}
+
+      •
+
+      {{ post.author }}
+
+      •
+
+      {{ post.topic }}
+
+    </mat-card-subtitle>
+
+    <mat-card-content>
+
+      <p>
+
+        {{ post.content }}
+
+      </p>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <div class="comments-section">
+
+    <h3>
+      Commentaires
+    </h3>
+
+    <div
+      class="comment-card"
+      *ngFor="let comment of post.comments"
+    >
+
+      <div class="comment-header">
+
+        <strong>
+          {{ comment.author }}
+        </strong>
+
+        <span>
+
+          {{
+            comment.createdAt
+            | date:'dd/MM/yyyy'
+          }}
+
+        </span>
+
+      </div>
+
+      <p>
+        {{ comment.content }}
+      </p>
+
+    </div>
+
+  </div>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submitComment()"
+    class="comment-form"
+  >
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Ajouter un commentaire
+      </mat-label>
+
+      <textarea
+        matInput
+        rows="4"
+        formControlName="content"
+      >
+      </textarea>
+
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+
+      Envoyer
+
+    </button>
+
+  </form>
+
+</div>

@@ -1,7 +1,9 @@
 package com.openclassrooms.mdd.service;
 
+import com.openclassrooms.mdd.dto.comment.CommentDto;
 import com.openclassrooms.mdd.dto.comment.CreateCommentRequest;
 import com.openclassrooms.mdd.dto.post.CreatePostRequest;
+import com.openclassrooms.mdd.dto.post.PostDetailDto;
 import com.openclassrooms.mdd.dto.post.PostDto;
 import com.openclassrooms.mdd.entity.*;
 
@@ -156,28 +158,65 @@ class PostServiceTest {
         List<PostDto> result = postService.getFeed();
 
         assertEquals(1, result.size());
-
-        assertEquals("Post title",
-                result.getFirst().getTitle());
+        assertEquals("Post title", result.get(0).getTitle());
     }
 
     @Test
-    void addComment_shouldCreateComment() {
+    void getPostById_shouldReturnPostDetail() {
+        Comment comment = Comment.builder()
+                .id(1L)
+                .content("Nice post")
+                .author(user)
+                .post(post)
+                .build();
 
-        CreateCommentRequest request =
-                new CreateCommentRequest();
-
-        request.setContent("Nice post");
-
-        when(userRepository.findByUsername("john"))
-                .thenReturn(Optional.of(user));
+        post.setComments(List.of(comment));
 
         when(postRepository.findById(1L))
                 .thenReturn(Optional.of(post));
 
-        postService.addComment(1L, request);
+        when(commentMapper.toDto(comment))
+                .thenReturn(CommentDto.builder()
+                        .id(1L)
+                        .content("Nice post")
+                        .author("john")
+                        .build());
 
-        verify(commentRepository, times(1))
-                .save(any(Comment.class));
+        PostDetailDto result = postService.getPostById(1L);
+
+        assertNotNull(result);
+        assertEquals("Post title", result.getTitle());
+        assertEquals("john", result.getAuthor());
+        assertEquals(1, result.getComments().size());
+    }
+
+    @Test
+    void createPost_shouldThrowWhenTopicNotFound() {
+        CreatePostRequest request = new CreatePostRequest();
+        request.setTitle("Post title");
+        request.setContent("Post content");
+        request.setTopicId(2L);
+
+        when(userRepository.findByUsername("john"))
+                .thenReturn(Optional.of(user));
+        when(topicRepository.findById(2L))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class,
+                () -> postService.createPost(request));
+    }
+
+    @Test
+    void addComment_shouldThrowWhenPostNotFound() {
+        CreateCommentRequest request = new CreateCommentRequest();
+        request.setContent("Nice post");
+
+        when(userRepository.findByUsername("john"))
+                .thenReturn(Optional.of(user));
+        when(postRepository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class,
+                () -> postService.addComment(1L, request));
     }
 }

@@ -1,0 +1,103 @@
+<app-navbar></app-navbar>
+
+<div class="profile-container">
+
+  <h1>
+    Profil utilisateur
+  </h1>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="save()"
+    class="profile-form"
+  >
+
+    <mat-form-field appearance="outline">
+
+      <input
+        matInput
+        placeholder="Username"
+        formControlName="username"
+      />
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <input
+        matInput
+        placeholder="email@email.fr"
+        formControlName="email"
+      />
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <input
+        matInput
+        type="password"
+        placeholder="Mot de passe"
+        formControlName="password"
+      />
+
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+
+      Sauvegarder
+
+    </button>
+
+  </form>
+
+  <div class="separator"></div>
+
+  <h2>
+    Abonnements
+  </h2>
+
+  <div class="subscriptions-grid">
+
+    <mat-card
+      class="subscription-card"
+      *ngFor="
+        let topic of subscriptions
+      "
+    >
+
+      <mat-card-title>
+
+        {{ topic.name }}
+
+      </mat-card-title>
+
+      <mat-card-content>
+
+        <p>
+
+          {{ topic.description }}
+
+        </p>
+
+      </mat-card-content>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="unsubscribe(topic)"
+      >
+
+        Se désabonner
+
+      </button>
+
+    </mat-card>
+
+  </div>
+
+</div>
