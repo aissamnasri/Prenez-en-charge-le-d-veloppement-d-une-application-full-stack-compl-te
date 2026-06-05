@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
-import { Router, RouterLink, RouterLinkActive }
-from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive
+} from '@angular/router';
 
 import { MatButtonModule }
 from '@angular/material/button';
@@ -33,14 +36,29 @@ from '../../core/services/auth.service';
 })
 export class NavbarComponent {
 
+  isMobileMenuOpen = false;
+
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
+  toggleMobileMenu(): void {
+
+    this.isMobileMenuOpen =
+      !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu(): void {
+
+    this.isMobileMenuOpen = false;
+  }
+
   logout(): void {
 
     this.authService.logout();
+
+    this.closeMobileMenu();
 
     this.router.navigate(['/login']);
   }

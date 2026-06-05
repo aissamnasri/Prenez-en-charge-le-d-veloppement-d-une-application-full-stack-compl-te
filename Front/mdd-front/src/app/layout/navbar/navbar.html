@@ -10,7 +10,16 @@
 
   </div>
 
-  <nav class="nav-links">
+  <!-- DESKTOP -->
+
+  <nav class="nav-links desktop-menu">
+
+    <button
+      class="logout-btn"
+      (click)="logout()"
+    >
+      Se déconnecter
+    </button>
 
     <a
       routerLink="/feed"
@@ -27,13 +36,6 @@
     </a>
 
     <button
-      class="logout-btn"
-      (click)="logout()"
-    >
-      Se déconnecter
-    </button>
-
-    <button
       mat-icon-button
       routerLink="/profile"
     >
@@ -44,4 +46,72 @@
 
   </nav>
 
+  <!-- MOBILE -->
+
+  <button
+    mat-icon-button
+    class="mobile-menu-btn"
+    (click)="toggleMobileMenu()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
 </header>
+
+<!-- OVERLAY -->
+
+<div
+  *ngIf="isMobileMenuOpen"
+  class="menu-overlay"
+  (click)="closeMobileMenu()"
+></div>
+
+<!-- DRAWER MOBILE -->
+
+<div
+  *ngIf="isMobileMenuOpen"
+  class="mobile-menu"
+>
+
+  <div class="mobile-links">
+
+    <button
+      class="logout-btn"
+      (click)="logout()"
+    >
+      Se déconnecter
+    </button>
+
+    <a
+      routerLink="/feed"
+      routerLinkActive="active-link"
+      (click)="closeMobileMenu()"
+    >
+      Articles
+    </a>
+
+    <a
+      routerLink="/topics"
+      routerLinkActive="active-link"
+      (click)="closeMobileMenu()"
+    >
+      Thèmes
+    </a>
+
+  </div>
+
+  <div class="mobile-bottom">
+
+    <button
+      mat-icon-button
+      routerLink="/profile"
+      (click)="closeMobileMenu()"
+    >
+      <mat-icon>
+        account_circle
+      </mat-icon>
+    </button>
+
+  </div>
+
+</div>

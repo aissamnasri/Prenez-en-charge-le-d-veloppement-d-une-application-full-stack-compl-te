@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   OnInit
 } from '@angular/core';
@@ -12,23 +13,32 @@ import {
   Validators
 } from '@angular/forms';
 
-import { MatInputModule } from '@angular/material/input';
+import { MatInputModule }
+from '@angular/material/input';
 
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule }
+from '@angular/material/button';
 
-import { MatCardModule } from '@angular/material/card';
+import { MatCardModule }
+from '@angular/material/card';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule }
+from '@angular/material/form-field';
 
-import { NavbarComponent } from '../../../../layout/navbar/navbar';
+import { NavbarComponent }
+from '../../../../layout/navbar/navbar';
 
-import { UserService } from '../../../../core/services/user';
+import { UserService }
+from '../../../../core/services/user';
 
-import { TopicService } from '../../../../core/services/topic';
+import { TopicService }
+from '../../../../core/services/topic';
 
-import { User } from '../../../../core/models/user.model';
+import { User }
+from '../../../../core/models/user.model';
 
-import { Topic } from '../../../../core/models/topic.model';
+import { Topic }
+from '../../../../core/models/topic.model';
 
 @Component({
   selector: 'app-profile',
@@ -49,8 +59,7 @@ import { Topic } from '../../../../core/models/topic.model';
 
   styleUrl: './profile.scss'
 })
-export class ProfileComponent
-implements OnInit {
+export class ProfileComponent implements OnInit {
 
   form: FormGroup;
 
@@ -63,7 +72,9 @@ implements OnInit {
 
     private userService: UserService,
 
-    private topicService: TopicService
+    private topicService: TopicService,
+
+    private cdr: ChangeDetectorRef
   ) {
 
     this.form = this.fb.group({
@@ -92,16 +103,15 @@ implements OnInit {
 
   loadUser(): void {
 
-    this.userService
-      .getCurrentUser()
+    this.userService.getCurrentUser()
       .subscribe({
 
-        next: user => {
+        next: (user) => {
 
           this.user = user;
 
           this.subscriptions =
-            user.subscriptions;
+            user.subscriptions ?? [];
 
           this.form.patchValue({
 
@@ -109,9 +119,11 @@ implements OnInit {
 
             email: user.email
           });
+
+          this.cdr.detectChanges();
         },
 
-        error: error => {
+        error: (error) => {
 
           console.error(error);
         }
@@ -129,12 +141,14 @@ implements OnInit {
       .updateUser(this.form.value)
       .subscribe({
 
-        next: user => {
+        next: (user) => {
 
           this.user = user;
+
+          this.cdr.detectChanges();
         },
 
-        error: error => {
+        error: (error) => {
 
           console.error(error);
         }
@@ -153,6 +167,13 @@ implements OnInit {
             this.subscriptions.filter(
               t => t.id !== topic.id
             );
+
+          this.cdr.detectChanges();
+        },
+
+        error: error => {
+
+          console.error(error);
         }
       });
   }

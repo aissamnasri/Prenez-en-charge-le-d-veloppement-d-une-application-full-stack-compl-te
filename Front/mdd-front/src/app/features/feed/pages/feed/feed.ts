@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-
-import { MatCardModule } from '@angular/material/card';
+import {
+  Router,
+  RouterModule
+} from '@angular/router';
+import { NavbarComponent } from '../../../../layout/navbar/navbar';
 
 import { MatButtonModule } from '@angular/material/button';
 
-import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 
 import { PostService } from '../../../../core/services/post.service';
 
 import { Post } from '../../../../core/models/post.model';
-import { NavbarComponent } from '../../../../layout/navbar/navbar';
 
 @Component({
   selector: 'app-feed',
@@ -20,10 +22,11 @@ import { NavbarComponent } from '../../../../layout/navbar/navbar';
 
   imports: [
     CommonModule,
-    MatCardModule,
-    MatButtonModule,
     RouterModule,
+    MatButtonModule,
+    MatCardModule,
     NavbarComponent
+
   ],
 
   templateUrl: './feed.html',
@@ -34,37 +37,41 @@ export class FeedComponent implements OnInit {
 
   posts: Post[] = [];
 
-  loading = false;
-
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
 
-    this.loadFeed();
+    this.loadPosts();
   }
 
-  loadFeed(): void {
+  loadPosts(): void {
 
-    this.loading = true;
-
-    this.postService.getFeed()
+    this.postService
+      .getFeed()
       .subscribe({
 
-        next: posts => {
+        next: (posts) => {
+
+          console.log(posts);
 
           this.posts = posts;
-
-          this.loading = false;
         },
 
-        error: error => {
+        error: (error) => {
 
           console.error(error);
-
-          this.loading = false;
         }
       });
+  }
+
+  openPost(postId: number): void {
+
+    this.router.navigate([
+      '/posts',
+      postId
+    ]);
   }
 }

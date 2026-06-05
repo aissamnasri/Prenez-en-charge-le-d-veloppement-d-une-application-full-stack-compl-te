@@ -45,12 +45,10 @@
 
     <button
       mat-raised-button
-      color="primary"
+      class="save-btn"
       type="submit"
     >
-
       Sauvegarder
-
     </button>
 
   </form>
@@ -65,35 +63,27 @@
 
     <mat-card
       class="subscription-card"
-      *ngFor="
-        let topic of subscriptions
-      "
+      *ngFor="let topic of subscriptions"
     >
 
-      <mat-card-title>
+      <div class="topic-title">
 
         {{ topic.name }}
 
-      </mat-card-title>
+      </div>
 
-      <mat-card-content>
+      <div class="topic-description">
 
-        <p>
+        {{ topic.description }}
 
-          {{ topic.description }}
-
-        </p>
-
-      </mat-card-content>
+      </div>
 
       <button
         mat-raised-button
-        color="primary"
+        class="unsubscribe-btn"
         (click)="unsubscribe(topic)"
       >
-
         Se désabonner
-
       </button>
 
     </mat-card>

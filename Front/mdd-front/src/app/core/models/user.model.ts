@@ -1,5 +1,4 @@
-import { Topic }
-from './topic.model';
+import { Topic } from "./topic.model";
 
 export interface User {
 
@@ -9,5 +8,5 @@ export interface User {
 
   email: string;
 
-  subscriptions: Topic[];
+  subscriptions:Topic[];
 }

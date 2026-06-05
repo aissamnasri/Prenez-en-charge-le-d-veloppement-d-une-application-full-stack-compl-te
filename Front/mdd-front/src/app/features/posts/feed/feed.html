@@ -1,12 +1,17 @@
-<button
-  mat-raised-button
-  color="primary"
-  routerLink="/posts/create"
->
-  Créer un article
-</button>
-<mat-card
-  class="post-card"
+
+<h1>TEST</h1>
+
+<div
   *ngFor="let post of posts"
-  [routerLink]="['/posts', post.id]"
+  (click)="testClick(post)"
+  style="
+    border:1px solid red;
+    margin:10px;
+    padding:20px;
+    cursor:pointer;
+  "
 >
+
+  {{ post.title }}
+
+</div>

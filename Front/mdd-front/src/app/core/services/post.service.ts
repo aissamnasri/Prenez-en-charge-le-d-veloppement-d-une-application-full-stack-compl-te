@@ -17,7 +17,9 @@ export class PostService {
 
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   getFeed(): Observable<Post[]> {
 
@@ -25,29 +27,41 @@ export class PostService {
       `${this.apiUrl}/posts/feed`
     );
   }
-  createPost(request: CreatePostRequest) {
 
-  return this.http.post(
-    `${this.apiUrl}/posts`,
-    request
-  );
-}
-getPostById(postId: number) {
+  getPosts(): Observable<Post[]> {
 
-  return this.http.get<PostDetail>(
-    `${this.apiUrl}/posts/${postId}`
-  );
-}
-addComment(
-  postId: number,
-  content: string
-) {
+    return this.getFeed();
+  }
 
-  return this.http.post(
-    `${this.apiUrl}/posts/${postId}/comments`,
-    {
-      content
-    }
-  );
-}
+  createPost(
+    request: CreatePostRequest
+  ) {
+
+    return this.http.post(
+      `${this.apiUrl}/posts`,
+      request
+    );
+  }
+
+  getPostById(
+    postId: number
+  ): Observable<PostDetail> {
+
+    return this.http.get<PostDetail>(
+      `${this.apiUrl}/posts/${postId}`
+    );
+  }
+
+  addComment(
+    postId: number,
+    content: string
+  ) {
+
+    return this.http.post(
+      `${this.apiUrl}/posts/${postId}/comments`,
+      {
+        content
+      }
+    );
+  }
 }

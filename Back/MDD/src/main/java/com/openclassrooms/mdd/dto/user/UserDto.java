@@ -1,5 +1,6 @@
 package com.openclassrooms.mdd.dto.user;
 
+import com.openclassrooms.mdd.dto.topic.TopicDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,5 +16,5 @@ public class UserDto {
 
     private String email;
 
-    private List<String> subscriptions;
+    private List<TopicDto> subscriptions;
 }

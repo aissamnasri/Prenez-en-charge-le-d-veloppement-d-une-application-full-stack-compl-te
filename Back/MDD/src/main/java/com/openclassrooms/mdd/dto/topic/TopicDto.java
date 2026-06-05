@@ -13,5 +13,5 @@ public class TopicDto {
 
     private String description;
 
-    private boolean subscribed;
+    private Boolean subscribed;
 }

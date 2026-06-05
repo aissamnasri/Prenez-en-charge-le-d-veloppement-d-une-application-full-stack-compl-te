@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
@@ -19,17 +14,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatSelectModule } from '@angular/material/select';
 
-import { NavbarComponent }
-from '../../../../layout/navbar/navbar';
+import { NavbarComponent } from '../../../../layout/navbar/navbar';
 
-import { TopicService }
-from '../../../../core/services/topic';
+import { TopicService } from '../../../../core/services/topic';
 
-import { PostService }
-from '../../../../core/services/post.service';
+import { PostService } from '../../../../core/services/post.service';
 
-import { Topic }
-from '../../../../core/models/topic.model';
+import { Topic } from '../../../../core/models/topic.model';
 
 @Component({
   selector: 'app-create-post',
@@ -43,16 +34,14 @@ from '../../../../core/models/topic.model';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    NavbarComponent
+    NavbarComponent,
   ],
 
   templateUrl: './create-post.html',
 
-  styleUrl: './create-post.scss'
+  styleUrl: './create-post.scss',
 })
-export class CreatePostComponent
-implements OnInit {
-
+export class CreatePostComponent implements OnInit {
   form: FormGroup;
 
   topics: Topic[] = [];
@@ -64,70 +53,50 @@ implements OnInit {
 
     private postService: PostService,
 
-    private router: Router
+    private router: Router,
+
+    private cdr: ChangeDetectorRef,
   ) {
-
     this.form = this.fb.group({
+      topicId: ['', Validators.required],
 
-      topicId: [
-        '',
-        Validators.required
-      ],
+      title: ['', Validators.required],
 
-      title: [
-        '',
-        Validators.required
-      ],
-
-      content: [
-        '',
-        Validators.required
-      ]
+      content: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-
     this.loadTopics();
   }
 
   loadTopics(): void {
+    this.topicService.getTopics().subscribe({
+      next: (topics) => {
+        this.topics = topics;
 
-    this.topicService.getTopics()
-      .subscribe({
+        this.cdr.detectChanges();
+      },
 
-        next: topics => {
-
-          this.topics = topics;
-        },
-
-        error: error => {
-
-          console.error(error);
-        }
-      });
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   submit(): void {
-
     if (this.form.invalid) {
-
       return;
     }
 
-    this.postService
-      .createPost(this.form.value)
-      .subscribe({
+    this.postService.createPost(this.form.value).subscribe({
+      next: () => {
+        this.router.navigate(['/feed']);
+      },
 
-        next: () => {
-
-          this.router.navigate(['/feed']);
-        },
-
-        error: error => {
-
-          console.error(error);
-        }
-      });
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 }

@@ -1,16 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { CommonModule }
-from '@angular/common';
+import { CommonModule } from '@angular/common';
 
-import { RouterModule }
-from '@angular/router';
+import { Router } from '@angular/router';
 
-import { MatButtonModule }
-from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
-import { MatCardModule }
-from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+
+import { PostService } from '../../../core/services/post.service';
 
 @Component({
   selector: 'app-feed',
@@ -19,7 +17,6 @@ from '@angular/material/card';
 
   imports: [
     CommonModule,
-    RouterModule,
     MatButtonModule,
     MatCardModule
   ],
@@ -28,7 +25,50 @@ from '@angular/material/card';
 
   styleUrl: './feed.scss'
 })
-export class FeedComponent {
+export class FeedComponent implements OnInit {
 
   posts: any[] = [];
+
+  constructor(
+    private postService: PostService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+
+    this.loadPosts();
+  }
+
+  loadPosts(): void {
+
+    this.postService.getFeed()
+      .subscribe({
+
+        next: posts => {
+
+          console.log(posts);
+
+          this.posts = posts;
+        },
+
+        error: error => {
+
+          console.error(error);
+        }
+      });
+  }
+
+  openPost(postId: number): void {
+
+  this.router.navigate([
+    '/posts',
+    postId
+  ]);
+}
+testClick(post: any): void {
+
+  console.log('CLICK DETECTE');
+
+  console.log(post);
+}
 }
